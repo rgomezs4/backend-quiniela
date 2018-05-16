@@ -54,6 +54,11 @@ module.exports = (sequelize, DataTypes) => {
     Match.belongsTo(models.Team, {
       foreignKey: "winner"
     });
+
+    Match.hasMany(models.Prediction, {
+        foreignKey: "matchId",
+        as: "Predictions"
+    });
   };
   return Match;
 };
