@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start:dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -20,5 +21,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.17.4"
+  },
+  "engines": {
+    "node": "9.3.0"
   }
 }
