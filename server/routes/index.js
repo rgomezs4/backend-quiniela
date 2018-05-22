@@ -53,6 +53,7 @@ module.exports = app => {
     app.post("/api/matches", matchesController.create);
     app.get("/api/matches", matchesController.list);
     app.get("/api/matches/:matchId", matchesController.retrieve);
+    app.put("/api/matches/finishMatch/:matchId", matchesController.finishMatch);
     app.put("/api/matches/:matchId", matchesController.update);
     app.delete("/api/matches/:matchId", matchesController.destroy);
     

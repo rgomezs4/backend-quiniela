@@ -1,5 +1,6 @@
 const Match = require("../models").Match;
 const Prediction = require("../models").Prediction;
+const Participant = require("../models").Participant;
 
 module.exports = {
     create(req, res) {
@@ -43,6 +44,64 @@ module.exports = {
                     });
                 }
                 return res.status(200).send(match);
+            })
+            .catch(error => res.status(400).send(error));
+    },
+    finishMatch(req, res) {
+        return Match.findById(req.params.matchId, {
+            include: [
+                {
+                    model: Prediction,
+                    as: "Predictions"
+                }
+            ]
+        })
+            .then(match => {
+                if (!match) {
+                    return res.status(404).send({
+                        message: "Match Not Found"
+                    });
+                }
+                let points = [];
+
+                match.Predictions.forEach(prediction => {
+                    let score = 0;
+                    if (prediction.winnerTeam === req.body.winner) {
+                        score = 1;
+                    }
+
+                    if (
+                        prediction.resultTeam1 === req.body.resultTeam1 &&
+                        prediction.resultTeam2 === req.body.resultTeam2
+                    ) {
+                        score = 3;
+                    }
+
+                    points.push({
+                        score: score,
+                        participantId: prediction.participantId
+                    });
+                });
+
+                points.forEach(points => {
+                    return Participant.findById(points.participantId).then(
+                        participant => {
+                            participant.score += points.score;
+                            participant
+                                .update(participant, {
+                                    fields: Object.keys(participant)
+                                })
+                                .catch(error => res.status(400).send(error));
+                        }
+                    );
+                });
+
+                req.body.is_completed = 1;
+
+                return match
+                    .update(req.body, { fields: Object.keys(req.body) })
+                    .then(() => res.status(200).send(match)) // Send back the updated match.
+                    .catch(error => res.status(400).send(error));
             })
             .catch(error => res.status(400).send(error));
     },
