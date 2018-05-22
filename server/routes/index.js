@@ -19,6 +19,7 @@ module.exports = app => {
     app.get("/api/users/:userId", usersController.retrieve);
     app.put("/api/users/:userId", usersController.update);
     app.delete("/api/users/:userId", usersController.destroy);
+    app.get("/api/users/:email/:password", usersController.login);
 
     // Leagues CRUD routes
     app.post("/api/leagues", leaguesController.create);
