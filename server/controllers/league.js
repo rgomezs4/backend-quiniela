@@ -57,11 +57,6 @@ module.exports = {
                 {
                     model: Stadium,
                     as: "Stadiums"
-                },
-                ,
-                {
-                    model: Stadium,
-                    as: "Stadiums"
                 }
             ]
         })
