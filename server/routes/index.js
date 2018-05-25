@@ -20,7 +20,6 @@ module.exports = app => {
     app.put("/api/users/:userId", usersController.update);
     app.delete("/api/users/:userId", usersController.destroy);
     app.get("/api/users/login/:email/:password", usersController.login);
-    app.get("/api/users/belongsToLeague/:userId/:leagueId", usersController.checkIfBelongsToLeague);
 
     // Leagues CRUD routes
     app.post("/api/leagues", leaguesController.create);
@@ -50,6 +49,7 @@ module.exports = app => {
     app.put("/api/participants/:participantId", participantsController.update);
     app.delete("/api/participants/:participantId", participantsController.destroy);
     app.get("/api/participants/getPredictionByMatch/:participantId/:matchId", participantsController.getPredictionByMatch);
+    app.get("/api/participants/belongsToLeague/:userId/:leagueId", participantsController.checkIfBelongsToLeague);
     
     // Stadiums CRUD routes
     app.post("/api/matches", matchesController.create);

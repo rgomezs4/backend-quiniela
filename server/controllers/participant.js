@@ -45,6 +45,23 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
+    checkIfBelongsToLeague(req, res) {
+        return Participant.findAll({
+            where: {
+                userId: request.params.userId,
+                leagueId: request.params.leagueId
+            }
+        })
+            .then(participant => {
+                if (!participant) {
+                    return res.status(404).send({
+                        message: "Participant Not Found"
+                    });
+                }
+                return res.status(200).send(participant);
+            })
+            .catch(error => res.status(400).send(error));
+    },
     getPredictionByMatch(req, res) {
         return Participant.findById(req.params.participantId, {
             include: [

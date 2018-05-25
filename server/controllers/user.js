@@ -42,32 +42,6 @@ module.exports = {
             })
             .catch(error => res.status(400).send(error));
     },
-    checkIfBelongsToLeague(req, res) {
-        return User.findById(req.params.userId, {
-            include: [
-                {
-                    model: Participant,
-                    as: "Participants"
-                }
-            ]
-        })
-            .then(user => {
-                let belongs = false;
-                if (!user) {
-                    return res.status(404).send({
-                        message: "User Not Found"
-                    });
-                }
-                user.Participants.some(participant => {
-                    if (participant.leagueId === req.params.leagueId) {
-                        belongs = true;
-                        return belongs;
-                    }
-                });
-                return res.status(200).send(belongs);
-            })
-            .catch(error => res.status(400).send(error));
-    },
     login(req, res) {
         let where = {
             where: { email: req.params.email, password: req.params.password }
