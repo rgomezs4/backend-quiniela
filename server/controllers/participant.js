@@ -8,7 +8,8 @@ module.exports = {
             userId: req.body.userId,
             authorized: req.body.authorized,
             role: req.body.role,
-            teamName: req.body.teamName
+            teamName: req.body.teamName,
+            score: req.body.score
         })
             .then(participant => res.status(201).send(participant))
             .catch(error => res.status(400).send(error));
@@ -31,6 +32,28 @@ module.exports = {
                 {
                     model: Prediction,
                     as: "Predictions"
+                }
+            ]
+        })
+            .then(participant => {
+                if (!participant) {
+                    return res.status(404).send({
+                        message: "Participant Not Found"
+                    });
+                }
+                return res.status(200).send(participant);
+            })
+            .catch(error => res.status(400).send(error));
+    },
+    getPredictionByMatch(req, res) {
+        return Participant.findById(req.params.participantId, {
+            include: [
+                {
+                    model: Prediction,
+                    as: "Predictions",
+                    where: {
+                        matchId: req.params.matchId
+                    }
                 }
             ]
         })

@@ -49,6 +49,7 @@ module.exports = app => {
     app.get("/api/participants/:participantId", participantsController.retrieve);
     app.put("/api/participants/:participantId", participantsController.update);
     app.delete("/api/participants/:participantId", participantsController.destroy);
+    app.get("/api/participants/getPredictionByMatch/:participantId/:matchId", participantsController.getPredictionByMatch);
     
     // Stadiums CRUD routes
     app.post("/api/matches", matchesController.create);
