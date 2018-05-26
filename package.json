@@ -7,7 +7,7 @@
     "prestart:dev": "SETX PG_DATABASE postgres://rssodmlszvzuum:0faed29d699960e01f2173e463577f3ec1fb287f6d994d62e9734a5fb516e404@ec2-54-235-193-34.compute-1.amazonaws.com:5432/dccp2ejoh63glv",
     "start:dev": "nodemon ./bin/www",
     "prestart": "export PG_DATABASE=postgres://rssodmlszvzuum:0faed29d699960e01f2173e463577f3ec1fb287f6d994d62e9734a5fb516e404@ec2-54-235-193-34.compute-1.amazonaws.com:5432/dccp2ejoh63glv",
-    "start": "node ./bin/www",
+    "start": "node ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "premigrate": "SETX PG_DATABASE postgres://rssodmlszvzuum:0faed29d699960e01f2173e463577f3ec1fb287f6d994d62e9734a5fb516e404@ec2-54-235-193-34.compute-1.amazonaws.com:5432/dccp2ejoh63glv",
     "migrate": "sequelize db:migrate"

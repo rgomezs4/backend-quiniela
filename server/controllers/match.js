@@ -86,11 +86,14 @@ module.exports = {
                 points.forEach(points => {
                     return Participant.findById(points.participantId).then(
                         participant => {
-                            participant.score += points.score;
+                            let p = {
+                                score: participant.score += points.score
+                            };
                             participant
-                                .update(participant, {
-                                    fields: Object.keys(participant)
+                                .update(p, {
+                                    fields: Object.keys(p)
                                 })
+                                .then(() => res.status(200).send({message: "proceso exitoso"}))
                                 .catch(error => res.status(400).send(error));
                         }
                     );
